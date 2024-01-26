@@ -2,7 +2,6 @@ const mongoose  = require("mongoose");
 
 const postSchema = new mongoose.schema({
     title: String,
-    content: String,
     image: {
         public_id: String,
         url: String
