@@ -3,14 +3,14 @@ const Post = require("../models/Post");
 exports.createPost = async (req,res) => {
     try {
 
-        const newPostData = await Post.create({
+        const newPostData = {
             title: req.body.title,
             image: {
                 public_id: "req.body.image.public_id",
                 url: "req.body.image.url"
             },
             owner: req.user._id,
-        });
+        };
         
         const newPost = await Post.create(newPostData);
 

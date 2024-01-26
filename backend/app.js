@@ -7,16 +7,17 @@ if (process.env.NODE_ENV !== 'PRODUCTION') {
 
 
 //use middleware
-app.arguments(express.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //import routes
 const postRoute = require("./routes/post");
-
+const userRoute = require("./routes/user");
 
 
 //use routes
-app.post("/api/v1", postRoute);
+app.use("/api/v1", postRoute);
+app.use("/api/v1", userRoute);
 
 
 module.exports = app
