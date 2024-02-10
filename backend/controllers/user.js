@@ -2,29 +2,19 @@
 
 const User = require("../models/User");
 
-exports.createUser = async (req, res) => { 
+exports.register = async (req, res) => { 
     try {
+        const { username, email, password } = req.body;
+        let user = await User.findOne({ email });
 
-        const newUserData ={
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            image: {
-                public_id: req.body.image.public_id,
-                url: req.body.image.url
-            },
-            posts: req.body.posts,
-            comments: req.body.comments,
-            following: req.body.following,
-            followers: req.body.followers,
-        };
+        if (user) {
+            return res.status(400).json({
+                success: false,
+                message:"User already exists"
+            })
+        }
 
-        const newUser = await User.create(newUserData);
-
-        res.status(201).json({
-            success: true,
-            newUser,
-        });
+        user = await User.create({ username, email, password,image:{public_id:"sampleId",url:"smapleurl"} });
         
     } catch (error) {
         res.status(500).json({
