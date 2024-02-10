@@ -14,7 +14,12 @@ exports.register = async (req, res) => {
             })
         }
 
-        user = await User.create({ username, email, password,image:{public_id:"sampleId",url:"smapleurl"} });
+        user = await User.create({ username, email, password, image: { public_id: "sampleId", url: "smapleurl" } });
+        res.status(201).json({
+            success: true,
+            message: "User created successfully",
+            user
+        })
         
     } catch (error) {
         res.status(500).json({
